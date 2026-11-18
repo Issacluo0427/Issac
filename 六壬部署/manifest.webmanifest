@@ -1,0 +1,14 @@
+{
+  "name": "大六壬排盘",
+  "short_name": "六壬排盘",
+  "description": "个人自用大六壬排盘",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f5f2",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
