@@ -1,4 +1,4 @@
-﻿const CACHE = 'liuren-v79';
+﻿const CACHE = 'liuren-v80';
 const ASSETS = ['./icon.svg', './manifest.webmanifest'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => {
@@ -21,6 +21,7 @@ self.addEventListener('fetch', e => {
     const copy = res.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); return res;
   }).catch(() => caches.match('./index.html'))));
 });
+
 
 
 
