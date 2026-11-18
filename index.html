@@ -9921,8 +9921,8 @@ function render(r) {
   const shx = (label, pred) => {
     const items = r.shensha.filter(pred);
     const rank = s => s.byKe ? 0 : (s.byMing && s.byXing ? 3 : s.byMing ? 1 : 2);
-    const hits = items.filter(s => s.hit).sort((a, b) => rank(a) - rank(b));
-    const rest = items.filter(s => !s.hit);
+    const cnt = {}; items.forEach(x => { cnt[x.zhi] = (cnt[x.zhi] || 0) + 1; }); const byGroup = (a, b) => (cnt[b.zhi] - cnt[a.zhi]) || (rank(a) - rank(b)) || (a.zhi - b.zhi); const hits = items.filter(s => s.hit).sort(byGroup);
+    const rest = items.filter(s => !s.hit).sort(byGroup);
     const cell = s => {
       const tag = s.hit && !s.byKe ? (s.byMing && s.byXing ? '命行' : s.byMing ? '命' : '行') : '';
       return `<span class="shx${s.hit?' hit':''}">${s.name}${s.zhiName?`<span class="zhi">-${s.zhiName}</span>`:''}${tag?`<span class="tag">（${tag}）</span>`:''}</span>`;
@@ -9953,19 +9953,21 @@ function render(r) {
   requestAnimationFrame(() => alignBifa());
 }
 
-// 记录框左边缘对齐盘面「亥」字（毕法不动）
+// 记录框左边缘对齐天地盘最右边竖列（地盘支列）
 function alignBifa() {
-  const hai = [...document.querySelectorAll('.pan .pc')].find(c => c.textContent === '亥');
   const row = document.querySelector('.bifa-row');
   const note = document.querySelector('.bifa-row .note');
-  if (!hai || !row || !note) return;
+  const pan = document.querySelector('.pan');
+  if (!row || !note || !pan) return;
   row.style.paddingLeft = '0px';
   note.style.marginLeft = '0px';
-  const dx = hai.getBoundingClientRect().left - note.getBoundingClientRect().left;
-  note.style.marginLeft = Math.max(0, Math.round(dx) + 28) + 'px';
-  // 宽度限制在盘面右边界内
-  const pan = document.querySelector('.pan');
-  const panRight = pan ? pan.getBoundingClientRect().right : 0;
+  note.style.width = '420px';
+  note.style.maxWidth = 'none';
+  const zs = [...document.querySelectorAll('.pan .pc.zhi')];
+  const ringRight = zs.length ? Math.max(...zs.map(z => z.getBoundingClientRect().right)) : 0;
+  const noteLeft0 = note.getBoundingClientRect().left;
+  note.style.marginLeft = Math.max(0, Math.round(ringRight - noteLeft0)) + 'px';
+  const panRight = pan.getBoundingClientRect().right;
   const noteLeft = note.getBoundingClientRect().left;
   const w = Math.max(140, Math.min(420, Math.round(panRight - noteLeft)));
   note.style.width = w + 'px';
@@ -9995,7 +9997,7 @@ document.getElementById('fit').addEventListener('click', () => {
 // 截图模式
 document.getElementById('shot').addEventListener('click', () => { document.body.classList.add('shot'); applyFit(); });
 document.getElementById('exitShot').addEventListener('click', () => { document.body.classList.remove('shot'); applyFit(); });
-window.addEventListener('resize', () => { applyFit(); setTimeout(alignBifa, 60); });
+window.addEventListener('resize', () => { applyFit(); });
 document.addEventListener('input', e => { if (e.target && e.target.id === 'note') noteText = e.target.value; });
 
 
