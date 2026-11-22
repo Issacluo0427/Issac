@@ -52,6 +52,7 @@ body {
 .cal-filter { display: flex; gap: 8px; margin-top: 14px; }
 .cal-filter select { flex: 1; font-size: 14px; padding: 8px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #333; font-family: -apple-system, "PingFang SC", sans-serif; }
 .hehun { margin-top: 14px; padding: 10px 0; border-top: 1px solid #eee; }
+.hh-reset { float: right; margin-left: 10px; font-size: 12px; padding: 2px 10px; border: 1px solid #ddd; border-radius: 10px; background: #fff; color: #666; cursor: pointer; }
 .hh-h { font-size: 13px; font-weight: 600; color: #7b5ea7; margin-bottom: 8px; }
 .hh-cal { display: flex; gap: 16px; font-size: 14px; color: #666; margin-bottom: 8px; }
 .hh-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
@@ -71,6 +72,27 @@ body {
 .hh-bazi .bz-t { color: #c0392b; font-size: 12px; font-weight: 600; }
 .hh-bazi .bz-err { color: #c0392b; font-size: 12px; }
 .hh-bazi .bz-ss { color: #c0392b; font-size: 11px; }
+.hh-bazi .bz-bad { color: #a00; font-weight: 700; }
+.cal-liyue { margin-top: 12px; }
+.ly-h { font-size: 12px; color: #7b5ea7; margin-bottom: 5px; }
+.ly-row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 5px; flex-wrap: wrap; }
+.ly-t { font-size: 12px; padding: 1px 7px; border-radius: 3px; }
+.ly-t.da { color: #c0392b; background: #fdf0ef; }
+.ly-t.xiao { color: #3a5fcd; background: #eef2fd; }
+.lytag { font-size: 11px; padding: 0 5px; border-radius: 3px; margin-right: 6px; }
+.lytag.da { color: #c0392b; background: #fdf0ef; }
+.lytag.xiao { color: #3a5fcd; background: #eef2fd; }
+.lytag.zt { color: #8a6d3b; background: #fcf8e3; }
+.lytag.zt-bad { color: #c0392b; background: #fdf0ef; font-weight: 700; }
+.lytag.zt-ok { color: #2e7d32; background: #eef7ee; }
+.lytag.rel-bad { color: #c0392b; background: #fdf0ef; font-weight: 700; }
+.lytag.rel-warn { color: #b8860b; background: #fdf8e3; }
+.lytag.luck { color: #2e7d32; background: #eef7ee; font-weight: 600; }
+.cr.off { opacity: .5; }
+.cr.off .d, .cr.off .gz { text-decoration: line-through; }
+.ly-btn { padding: 3px 11px; border: 1px solid #ddd; border-radius: 12px; cursor: pointer; background: #fff; user-select: none; }
+.ly-btn.da { border-color: #e0b4b0; color: #c0392b; }
+.ly-btn.xiao { border-color: #b8c6ee; color: #3a5fcd; }
 .cal-result { margin-top: 6px; }
 .cal-result .cr { display: flex; justify-content: space-between; align-items: center; padding: 9px 4px; border-bottom: 1px solid #f2f2f2; font-size: 14px; cursor: pointer; }
 .cal-result .cr .d { color: #1a1a1a; }
@@ -219,9 +241,10 @@ footer .mark { color: #c9a; font-weight: 600; letter-spacing: 0.5px; }
     <div class="cal-wk"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
     <div id="calGrid" class="cal-grid"></div>
     <div class="cal-filter"><select id="calYongshi"><option value="">按用事筛选（协纪+鳌头都宜）…</option><option value="安葬">安葬</option><option value="结婚">结婚</option><option value="搬家">搬家</option></select></div>
-    <div class="hehun" id="hhMarriage" hidden><div class="hh-h">合婚 · 出生信息</div><div class="hh-row hh-tstrow"><span class="hh-l">真时</span><input type="checkbox" id="hhTst" class="hh-cb"><label class="hh-jishi" for="hhTst">真太阳时</label></div><div class="hh-row"><span class="hh-l">男命</span><select id="hhMaleCal" class="hh-sel hh-calsel"><option value="solar">阳历</option><option value="lunar">阴历</option></select><label class="hh-leap" hidden><input type="checkbox" id="hhMaleLeap" class="hh-cb"><span>闰</span></label><input type="datetime-local" id="hhMaleDT" class="hh-dt"><input type="checkbox" id="hhMaleJishi" class="hh-cb" checked><label class="hh-jishi" for="hhMaleJishi">吉时</label><select id="hhMaleProv" class="hh-sel"></select><select id="hhMaleCity" class="hh-sel"></select><span class="hh-bazi" id="hhMaleBazi"></span></div><div class="hh-row"><span class="hh-l">女命</span><select id="hhFemaleCal" class="hh-sel hh-calsel"><option value="solar">阳历</option><option value="lunar">阴历</option></select><label class="hh-leap" hidden><input type="checkbox" id="hhFemaleLeap" class="hh-cb"><span>闰</span></label><input type="datetime-local" id="hhFemaleDT" class="hh-dt"><input type="checkbox" id="hhFemaleJishi" class="hh-cb" checked><label class="hh-jishi" for="hhFemaleJishi">吉时</label><select id="hhFemaleProv" class="hh-sel"></select><select id="hhFemaleCity" class="hh-sel"></select><span class="hh-bazi" id="hhFemaleBazi"></span></div></div>
-    <div class="hehun" id="hhSingle" hidden><div class="hh-h">福主</div><div class="hh-row hh-tstrow"><span class="hh-l">真时</span><input type="checkbox" id="hhTst2" class="hh-cb"><label class="hh-jishi" for="hhTst2">真太阳时</label><select id="hhProv2" class="hh-sel"></select><select id="hhCity2" class="hh-sel"></select></div><div class="hh-row"><span class="hh-l">性别</span><label class="hh-sex"><input type="radio" name="hhSex" value="男" checked> 男</label><label class="hh-sex"><input type="radio" name="hhSex" value="女"> 女</label></div><div class="hh-row"><span class="hh-l">出生</span><select id="hhSingleCal" class="hh-sel hh-calsel"><option value="solar">阳历</option><option value="lunar">阴历</option></select><label class="hh-leap" hidden><input type="checkbox" id="hhSingleLeap" class="hh-cb"><span>闰</span></label><input type="datetime-local" id="hhSingleDT" class="hh-dt"><input type="checkbox" id="hhSingleJishi" class="hh-cb" checked><label class="hh-jishi" for="hhSingleJishi">吉时</label><span class="hh-bazi" id="hhSingleBazi"></span></div></div>
+    <div class="hehun" id="hhMarriage" hidden><div class="hh-h">合婚 · 出生信息<button id="hhReset" class="hh-reset" type="button">重置</button></div><div class="hh-row hh-tstrow"><span class="hh-l">真时</span><input type="checkbox" id="hhTst" class="hh-cb"><label class="hh-jishi" for="hhTst">真太阳时</label></div><div class="hh-row"><span class="hh-l">男命</span><select id="hhMaleCal" class="hh-sel hh-calsel"><option value="solar">阳历</option><option value="lunar">阴历</option></select><label class="hh-leap" hidden><input type="checkbox" id="hhMaleLeap" class="hh-cb"><span>闰</span></label><input type="datetime-local" id="hhMaleDT" class="hh-dt"><input type="checkbox" id="hhMaleJishi" class="hh-cb" checked><label class="hh-jishi" for="hhMaleJishi">吉时</label><select id="hhMaleProv" class="hh-sel"></select><select id="hhMaleCity" class="hh-sel"></select><span class="hh-bazi" id="hhMaleBazi"></span></div><div class="hh-row"><span class="hh-l">女命</span><select id="hhFemaleCal" class="hh-sel hh-calsel"><option value="solar">阳历</option><option value="lunar">阴历</option></select><label class="hh-leap" hidden><input type="checkbox" id="hhFemaleLeap" class="hh-cb"><span>闰</span></label><input type="datetime-local" id="hhFemaleDT" class="hh-dt"><input type="checkbox" id="hhFemaleJishi" class="hh-cb" checked><label class="hh-jishi" for="hhFemaleJishi">吉时</label><select id="hhFemaleProv" class="hh-sel"></select><select id="hhFemaleCity" class="hh-sel"></select><span class="hh-bazi" id="hhFemaleBazi"></span></div></div>
+    <div class="hehun" id="hhSingle" hidden><div class="hh-h">福主</div><div class="hh-row hh-tstrow"><span class="hh-l">真时</span><input type="checkbox" id="hhTst2" class="hh-cb"><label class="hh-jishi" for="hhTst2">真太阳时</label></div><div class="hh-row"><span class="hh-l">福主</span><select id="hhSexSel" class="hh-sel hh-calsel"><option value="男">男</option><option value="女">女</option></select><select id="hhSingleCal" class="hh-sel hh-calsel"><option value="solar">阳历</option><option value="lunar">阴历</option></select><label class="hh-leap" hidden><input type="checkbox" id="hhSingleLeap" class="hh-cb"><span>闰</span></label><input type="datetime-local" id="hhSingleDT" class="hh-dt"><input type="checkbox" id="hhSingleJishi" class="hh-cb" checked><label class="hh-jishi" for="hhSingleJishi">吉时</label><select id="hhProv2" class="hh-sel"></select><select id="hhCity2" class="hh-sel"></select><span class="hh-bazi" id="hhSingleBazi"></span></div></div>
     <div id="calResult" class="cal-result"></div>
+<div id="calLiyue" class="cal-liyue" hidden></div>
     <div id="calDetail" class="cal-detail"></div>
   </div>
 </div>
@@ -10193,6 +10216,7 @@ function calLunar(y, m, d) {
   const jq = l.getJieQi();
   return { lunarMonth: l.getMonthInChinese(), lunarDay: l.getDayInChinese(), lunarDayNum: l.getDay(),
     gz: l.getDayInGanZhi(), jq, yGz: l.getYearInGanZhi(), mGz: l.getMonthInGanZhi(),
+    lunarMonthNum: l.getMonth(), lunarDays: (function(){ try { const lm = LunarMonth.fromYm(l.getYear(), l.getMonth()); return lm ? lm.getDayCount() : 30; } catch(e) { return 30; } })(),
     xunKong: l.getDayXunKong ? l.getDayXunKong() : '',
     yi: l.getDayYi ? l.getDayYi() : [], ji: l.getDayJi ? l.getDayJi() : [] };
 }
@@ -10243,6 +10267,12 @@ function calRender() {
     '<div class="line">日空：' + info.xunKong + (info.jq ? '　节气：' + info.jq : '') + '</div>' +
     (function(){ const yb = yuebiaoOf(info); if (!yb) return ''; const esc = a => a.map(i => YUEBIAO_ITEMS[i]).join(' ') || '—'; return '<div class="yb-h">协纪辨方</div>' + '<div class="yi"><b>宜</b>　' + esc(yb.xieji[2]) + '</div>' + '<div class="ji"><b>忌</b>　' + esc(yb.xieji[3]) + '</div>' + '<div class="yb-h">鳌头</div>' + '<div class="yi"><b>宜</b>　' + esc(yb.aotou[2]) + '</div>' + '<div class="ji"><b>忌</b>　' + esc(yb.aotou[3]) + '</div>'; })();
   calFilterRender();
+  // 年三煞等随日历年份刷新
+  try {
+    if (typeof _PAIRS !== 'undefined' && _PAIRS && typeof _updateBazi === 'function') {
+      _PAIRS.forEach(function (pr) { _updateBazi(pr[0], pr[1], pr[2], pr[3], pr[4]); });
+    }
+  } catch (e) {}
 }
 // ─── 按用事筛选 ───
 const JIANCHU = ['建','除','满','平','定','执','破','危','成','收','开','闭'];
@@ -10258,15 +10288,100 @@ function _bujiangOf(info) {
   const arr = BUJIANG[String(mi)] || [];
   return arr.indexOf(info.gz) >= 0;
 }
+// 逐月安葬吉日（节气月；月1=寅月）
+var _ANZANG_JIRI = {
+  1: ['癸酉','丁酉','己酉','乙酉','辛酉','壬午','丙午','丙寅','壬寅'],
+  2: ['壬申','甲申','己未','庚申','甲子','辛未','庚寅','丙寅','丙申','壬寅','丁未'],
+  3: ['壬申','甲申','丙申','癸酉','丁酉','庚申','壬午','丙午','庚午','乙酉','甲子','丙子'],
+  4: ['乙酉','丁酉','己酉','癸酉','辛酉','壬午','庚午','甲午','丁丑','辛丑','乙丑','癸丑'],
+  5: ['甲申','丙申','庚申','壬申','庚寅','壬寅','甲寅','辛未','丙辰','甲戌'],
+  6: ['壬申','癸酉','甲申','乙酉','丙申','丁酉','庚申','庚寅','壬寅','甲寅','辛卯'],
+  7: ['癸酉','乙酉','丁酉','己酉','壬申','丙子','甲申','丙申','壬子','丙辰','辛未','丁未'],
+  8: ['壬申','丙申','甲申','庚申','庚寅','壬寅','壬辰','丙辰','乙巳','丁巳'],
+  9: ['壬午','丙午','庚午','庚寅','壬寅','丙申','甲申','庚申','辛酉'],
+  10: ['庚午','辛未','丙子','丙辰','丙午','乙未','甲子','己未'],
+  11: ['庚寅','甲寅','壬寅','甲申','丙申','壬申','庚申','甲辰','壬辰'],
+  12: ['甲申','丙申','壬申','庚申','丙寅','庚寅','壬寅','甲寅','乙酉','辛酉']
+};
+function _anzangJiri(info) {
+  if (!info || !info.mGz) return false;
+  const mi = ((ZHI12.indexOf(String(info.mGz)[1]) - 2) % 12 + 12) % 12 + 1;
+  return (_ANZANG_JIRI[mi] || []).indexOf(String(info.gz)) >= 0;
+}
+// 重丧/重服：按月（节气月）查日干
+var _CHONGSANG = { 1:['甲','庚'], 2:['乙','辛'], 3:['己','戊'], 4:['丙','壬'], 5:['丁','癸'], 6:['己','戊'], 7:['庚','甲'], 8:['辛','乙'], 9:['己','戊'], 10:['壬','丙'], 11:['癸','丁'], 12:['己','戊'] };
+function _chongsangOf(info) {
+  if (!info || !info.mGz) return '';
+  const mi = ((ZHI12.indexOf(String(info.mGz)[1]) - 2) % 12 + 12) % 12 + 1;
+  const gan = String(info.gz).charAt(0);
+  const t = _CHONGSANG[mi] || [];
+  if (t[0] === gan) return '重丧';
+  if (t[1] === gan) return '重服';
+  return '';
+}
+// 扫地空亡：以福主年支定忌日支
+var _SAODI = { '辰':['午','未'],'巳':['午','未'],'子':['午','未'],'申':['酉','戌'],'酉':['酉','戌'],'丑':['酉','戌'],'寅':['子','丑'],'卯':['子','丑'],'午':['子','丑'],'亥':['卯','辰'],'戌':['卯','辰'],'未':['卯','辰'] };
+function _saodiOf(info) {
+  if (!_fuYearZhi) return '';
+  const t = _SAODI[_fuYearZhi] || [];
+  return t.indexOf(String(info.gz).charAt(1)) >= 0 ? '扫地空亡' : '';
+}
+// 冷地空亡：以福主年干定忌日支
+var _LENGDI = { '甲':['子','午'],'己':['子','午'],'乙':['寅','申'],'庚':['寅','申'],'丙':['卯','酉'],'辛':['卯','酉'],'丁':['丑','未'],'壬':['丑','未'],'戊':['辰','戌'],'癸':['辰','戌'] };
+function _lengdiOf(info) {
+  if (!_fuYearGan) return '';
+  const t = _LENGDI[_fuYearGan] || [];
+  return t.indexOf(String(info.gz).charAt(1)) >= 0 ? '冷地空亡' : '';
+}
+// 入地空亡：以福主年干定某日干支
+var _RUDI = { '甲':'庚午','己':'庚午','乙':'庚辰','庚':'庚辰','丙':'庚寅','辛':'庚寅','丁':'庚戌','壬':'庚戌','戊':'庚申','癸':'庚申' };
+function _rudiOf(info) {
+  if (!_fuYearGan) return '';
+  return _RUDI[_fuYearGan] === String(info.gz) ? '入地空亡' : '';
+}
+// 安葬四吉：天德/月德/马星/禄（以福主年支、年干）
+var _TIANDE = { '寅':'丁','卯':'申','辰':'壬','巳':'辛','午':'亥','未':'甲','申':'癸','酉':'寅','戌':'丙','亥':'乙','子':'巳','丑':'庚' };
+var _YUEDE = { '申':'壬','子':'壬','辰':'壬','亥':'甲','卯':'甲','未':'甲','巳':'庚','酉':'庚','丑':'庚','寅':'丙','午':'丙','戌':'丙' };
+var _MAXING = { '申':'寅','子':'寅','辰':'寅','亥':'巳','卯':'巳','未':'巳','巳':'亥','酉':'亥','丑':'亥','寅':'申','午':'申','戌':'申' };
+var _TIANYI = { '甲':['丑','未'],'戊':['丑','未'],'庚':['丑','未'],'乙':['子','申'],'己':['子','申'],'丙':['亥','酉'],'丁':['亥','酉'],'壬':['巳','卯'],'癸':['巳','卯'] };
+var _LUSHEN = { '甲':'寅','乙':'卯','丙':'巳','丁':'午','戊':'巳','己':'午','庚':'申','辛':'酉','壬':'子','癸':'亥' };
+function _anzangFortune(info) {
+  if (!_fuYearGan || !_fuYearZhi) return '';
+  const gz = String(info.gz), gan = gz.charAt(0), zhi = gz.charAt(1);
+  const tags = [];
+  if (_TIANDE[_fuYearZhi] === gan || _TIANDE[_fuYearZhi] === zhi) tags.push('天德');
+  if (_YUEDE[_fuYearZhi] === gan) tags.push('月德');
+  if (_MAXING[_fuYearZhi] === zhi) tags.push('马星');
+  if (_LUSHEN[_fuYearGan] === zhi) tags.push('禄神');
+  if ((_TIANYI[_fuYearGan] || []).indexOf(zhi) >= 0) tags.push('天乙');
+  return tags.map(t => '<span class="lytag luck">' + t + '</span>').join('');
+}
+
 const YONGSHI_RULES = {
-  '安葬': [{ label: '', fn: (yb) => _has(yb.xieji[2], '安葬') && _has(yb.aotou[2], '安葬') }],
+  '安葬': [
+    { label: '一选', desc: '协纪宜安葬+鳌头宜安葬+十二月建(满/定/执/闭/成)+逐月安葬吉日', fn: (yb, jc, info) => _has(yb.xieji[2], '安葬') && _has(yb.aotou[2], '安葬') && ['满', '定', '执', '闭', '成'].indexOf(jc) >= 0 && _anzangJiri(info) },
+    { label: '二选', desc: '协纪宜安葬+鳌头宜安葬+十二月建(满/定/执/闭/成)', fn: (yb, jc) => _has(yb.xieji[2], '安葬') && _has(yb.aotou[2], '安葬') && ['满', '定', '执', '闭', '成'].indexOf(jc) >= 0 }
+  ],
   '结婚': [
     { label: '一选', desc: '协纪四项+鳌头(结婚/嫁娶/进人口)+十二月建+不将', fn: (yb, jc, info) => _jcOK(jc) && _bujiangOf(info) && _hunXiji(yb) && !_has(yb.aotou[3], '结婚') && !_has(yb.aotou[3], '嫁娶') && !_has(yb.aotou[3], '进人口') && _has(yb.aotou[2], '结婚') && _has(yb.aotou[2], '嫁娶') && _has(yb.aotou[2], '进人口') },
     { label: '二选', desc: '协纪四项+鳌头(结婚/嫁娶)+十二月建+不将', fn: (yb, jc, info) => _jcOK(jc) && _bujiangOf(info) && _hunXiji(yb) && !_has(yb.aotou[3], '结婚') && !_has(yb.aotou[3], '嫁娶') && !_has(yb.aotou[3], '进人口') && _has(yb.aotou[2], '结婚') && _has(yb.aotou[2], '嫁娶') },
     { label: '三选', desc: '协纪四项+鳌头(不忌婚嫁)+十二月建+不将', fn: (yb, jc, info) => _jcOK(jc) && _bujiangOf(info) && _hunXiji(yb) && !_has(yb.aotou[3], '结婚') && !_has(yb.aotou[3], '嫁娶') && !_has(yb.aotou[3], '进人口') && (_has(yb.aotou[2], '结婚') || _has(yb.aotou[2], '嫁娶')) },
     { label: '四选', desc: '协纪四项+鳌头(不忌婚嫁)+十二月建', fn: (yb, jc) => _jcOK(jc) && _hunXiji(yb) && !_has(yb.aotou[3], '结婚') && !_has(yb.aotou[3], '嫁娶') && !_has(yb.aotou[3], '进人口') && (_has(yb.aotou[2], '结婚') || _has(yb.aotou[2], '嫁娶')) },
   ],
-  '搬家': [{ label: '', fn: (yb, jc) => _has(yb.xieji[2], '进人口') && _has(yb.xieji[2], '移徙') && _jcOK(jc) }],
+  '搬家': [
+    { label: '一选', desc: '协纪(进人口+移徙)+鳌头(入宅/移徙/进人口任其一宜,其余不忌)+十二月建(除危定执成开)', fn: (yb, jc) => {
+        if (!_has(yb.xieji[2], '进人口') || !_has(yb.xieji[2], '移徙')) return false;
+        if (['除', '危', '定', '执', '成', '开'].indexOf(jc) < 0) return false;
+        let yi = 0;
+        for (const n of ['入宅', '移徙', '进人口']) { if (_has(yb.aotou[2], n)) yi++; else if (_has(yb.aotou[3], n)) return false; }
+        return yi >= 1;
+      } },
+    { label: '二选', desc: '协纪(进人口+移徙)+鳌头不忌入宅/移徙/进人口+十二月建(除危定执成开)', fn: (yb, jc) => {
+        if (!_has(yb.xieji[2], '进人口') || !_has(yb.xieji[2], '移徙')) return false;
+        if (['除', '危', '定', '执', '成', '开'].indexOf(jc) < 0) return false;
+        return ['入宅', '移徙', '进人口'].every(n => !_has(yb.aotou[3], n));
+      } }
+  ],
 };
 // 勾吉时则禁用时间输入
 document.querySelectorAll('.hh-jishi input').forEach(cb => {
@@ -10308,7 +10423,9 @@ function _baziOf(dtStr, isLunar, leap, jishi, lng, useTst) {
   // 日柱用 Exact（23:00 后按次日），时柱同步
   const dayZ = lu.getDayInGanZhiExact ? lu.getDayInGanZhiExact() : ec.getDay();
   const timeZ = lu.getTimeInGanZhi ? lu.getTimeInGanZhi() : ec.getTime();
-  const ymd = ec.getYear() + ' ' + ec.getMonth() + ' ' + dayZ;
+  // 吉时：月柱按节气日归属（时辰不明时不按精确时刻切分）
+  const monthZ = (HH == null && lu.getMonthInGanZhi) ? lu.getMonthInGanZhi() : ec.getMonth();
+  const ymd = ec.getYear() + ' ' + monthZ + ' ' + dayZ;
   return HH == null ? ymd + ' 吉时' : ymd + ' ' + timeZ;
 }
 function _updateBazi(prefix, calName, tstId, provId, cityId) {
@@ -10318,8 +10435,9 @@ function _updateBazi(prefix, calName, tstId, provId, cityId) {
   if (!de || !be) return;
   const calEl = document.getElementById(calName);
   const isLunar = calEl && calEl.value === 'lunar';
-  const sexR = document.querySelector('input[name=hhSex]:checked');
-  const title = prefix === 'hhMale' ? '乾造' : prefix === 'hhFemale' ? '坤造' : (sexR && sexR.value === '女' ? '坤造' : '乾造');
+  const sexSel = document.getElementById('hhSexSel');
+  const sexVal = sexSel ? sexSel.value : '男';
+  const title = prefix === 'hhMale' ? '乾造' : prefix === 'hhFemale' ? '坤造' : (sexVal === '女' ? '坤造' : '乾造');
   const tstEl = document.getElementById(tstId);
   const le = document.getElementById(prefix + 'Leap');
   const leWrap = le ? le.closest('.hh-leap') : null;
@@ -10332,7 +10450,34 @@ function _updateBazi(prefix, calName, tstId, provId, cityId) {
     return;
   }
   const ssMark = ba ? _sanshaMark(ba) : '';
-  be.innerHTML = ba ? '<span class="bz-t">' + title + '：</span>' + ba + (ssMark ? '<br><span class="bz-ss">⚠ ' + ssMark + '</span>' : '') : '';
+  let jtmMark = '';
+  if (ba && prefix === 'hhFemale') {
+    const dp = de.value.split('T')[0].split('-').map(Number);
+    const jt = _jiutianmen(dp[0], dp[1], dp[2]);
+    if (jt) jtmMark = '<br><span class="bz-ss' + (jt.level === '不开' ? ' bz-bad' : '') + '">九天门：' + jt.level + '（虚岁 ' + jt.xu + '）</span>';
+    // 记录女命年支，供利月判定
+    const oldZ = _nvYearZhi;
+    _nvYearZhi = ba && ba.length > 1 ? ba.charAt(1) : '';
+    if (oldZ !== _nvYearZhi && typeof calFilterRender === 'function') {
+      try { calFilterRender(); } catch (e) {}
+    }
+  }
+  if (prefix === 'hhMale') {
+    const oldN = _nanYearZhi;
+    _nanYearZhi = (ba && ba.length > 1) ? ba.charAt(1) : '';
+    if (oldN !== _nanYearZhi && typeof calFilterRender === 'function') { try { calFilterRender(); } catch (e) {} }
+  }
+  if (prefix === 'hhSingle') {
+    const oldF = _fuYearZhi;
+    _fuYearZhi = (ba && ba.length > 1) ? ba.charAt(1) : '';
+    _fuYearGan = (ba && ba.length > 0) ? ba.charAt(0) : '';
+    if (oldF !== _fuYearZhi && typeof calFilterRender === 'function') { try { calFilterRender(); } catch (e) {} }
+  }
+  let jhMark = '';
+  if (ba && (prefix === 'hhMale' || prefix === 'hhFemale')) {
+    jhMark = _jinhunMark(ba.charAt(1), prefix === 'hhMale' ? 'male' : 'female');
+  }
+  be.innerHTML = ba ? '<span class="bz-t">' + title + '：</span>' + ba + (ssMark ? '<br><span class="bz-ss">⚠ ' + ssMark + '</span>' : '') + (jhMark ? '<br><span class="bz-ss bz-bad">⚠ ' + jhMark + '</span>' : '') + jtmMark : '';
 }
 // 年三煞判定：以日历当年年支定三煞，看八字年支是否犯
 var _SAN_SHA = {
@@ -10341,7 +10486,75 @@ var _SAN_SHA = {
   '亥': '申酉戌', '卯': '申酉戌', '未': '申酉戌',
   '巳': '寅卯辰', '酉': '寅卯辰', '丑': '寅卯辰'
 };
+// 九天门大开（女命虚岁）：寅申巳亥起13，子午卯酉起12，辰戌丑未起11
+var _JTM_START = { '寅': 13, '申': 13, '巳': 13, '亥': 13, '子': 12, '午': 12, '卯': 12, '酉': 12, '辰': 11, '戌': 11, '丑': 11, '未': 11 };
+// 日支 与 八字年支 的 冲/刑/害
+var _CHONG = { '子':'午','午':'子','丑':'未','未':'丑','寅':'申','申':'寅','卯':'酉','酉':'卯','辰':'戌','戌':'辰','巳':'亥','亥':'巳' };
+var _XING = { '子':['卯'],'卯':['子'],'寅':['巳','申'],'巳':['寅','申'],'申':['寅','巳'],'丑':['戌','未'],'戌':['丑','未'],'未':['丑','戌'],'辰':['辰'],'午':['午'],'酉':['酉'],'亥':['亥'] };
+var _HAI6 = { '子':'未','未':'子','丑':'午','午':'丑','寅':'巳','巳':'寅','卯':'辰','辰':'卯','申':'亥','亥':'申','酉':'戌','戌':'酉' };
+var _nvYearZhi2 = '', _nanYearZhi = '', _fuYearZhi = '', _fuYearGan = '';
+function _relOf(dayZhi, yz) {
+  if (!dayZhi || !yz) return '';
+  if (_CHONG[dayZhi] === yz) return 'chong';
+  if (_XING[dayZhi] && _XING[dayZhi].indexOf(yz) >= 0) return 'xing';
+  if (_HAI6[dayZhi] === yz) return 'hai';
+  return '';
+}
+function _relTags(info, ys) {
+  const dz = String(info.gz)[1];
+  const list = [];
+  const targets = [];
+  if (ys === '结婚') { if (_nanYearZhi) targets.push({ z: _nanYearZhi, who: '男' }); if (_nvYearZhi) targets.push({ z: _nvYearZhi, who: '女' }); }
+  else if (_fuYearZhi) targets.push({ z: _fuYearZhi, who: '' });
+  let hasChong = false, hasHai = false;
+  targets.forEach(t => {
+    const r = _relOf(dz, t.z);
+    if (!r) return;
+    if (r === 'chong') { hasChong = true; list.push('<span class="lytag rel-bad">⚠ ' + (t.who ? t.who + '命' : '') + '年支' + t.z + '冲</span>'); }
+    else if (r === 'xing') list.push('<span class="lytag rel-warn">' + (t.who ? t.who + '命' : '') + '年支' + t.z + '刑</span>');
+    else { hasHai = true; list.push('<span class="lytag rel-warn">' + (t.who ? t.who + '命' : '') + '年支' + t.z + '害</span>'); }
+  });
+  return { html: list.join(''), chong: hasChong, hai: hasHai };
+}
+// 嫁娶周堂：大月(30)从夫顺时针，小月(29)从妇逆时针
+var _ZT_DA = ['夫','姑','堂','翁','弟','灶','妇','厨'];
+var _ZT_XIAO = ['妇','灶','弟','翁','堂','姑','夫','厨'];
+function _zhoutangOf(info) {
+  const day = info.lunarDayNum;
+  if (!day) return '';
+  const arr = (Number(info.lunarDays) === 29) ? _ZT_XIAO : _ZT_DA;
+  return arr[(day - 1) % 8];
+}
+// 岁命二星（婚嫁禁婚年）：男犯命星、女犯岁星（各一行）
+var _JINHUN = {
+  male: { '子':'未','丑':'申','寅':'酉','卯':'戌','辰':'亥','巳':'子','午':'丑','未':'寅','申':'卯','酉':'辰','戌':'巳','亥':'午' },
+  female: { '子':'卯','丑':'寅','寅':'丑','卯':'子','辰':'亥','巳':'戌','午':'酉','未':'申','申':'未','酉':'午','戌':'巳','亥':'辰' }
+};
+function _jinhunMark(yearZhi, sex) {
+  const t = sex === 'male' ? _JINHUN.male : _JINHUN.female;
+  const jy = t[yearZhi];
+  if (!jy) return '';
+  let calZhi = '';
+  try { calZhi = Solar.fromYmd(CAL.y, 6, 1).getLunar().getYearInGanZhiExact().charAt(1); } catch (e) { return ''; }
+  if (calZhi !== jy) return '';
+  return sex === 'male' ? ('男命犯命星（' + jy + '年禁婚）') : ('女命犯岁星（' + jy + '年禁婚）');
+}
+function _jiutianmen(y, m, d) {
+  if (!y || !m || !d) return null;
+  var bl;
+  try { bl = Solar.fromYmd(y, m, d).getLunar(); } catch (e) { return null; }
+  const birthLunarYear = bl.getYear();
+  const zhi = bl.getYearInGanZhiExact().charAt(1); // 属相按立春换年
+  const xu = CAL.y - birthLunarYear + 1;
+  const start = _JTM_START[zhi];
+  if (!start || xu < start) return null;
+  const r = (xu - start) % 3;
+  return { xu: xu, level: r === 0 ? '大开' : r === 1 ? '半开' : '不开' };
+}
 function _sanshaMark(bazi) {
+  // 搬家不做三煞提示
+  const _ysEl = document.getElementById('calYongshi');
+  if (_ysEl && _ysEl.value === '搬家') return '';
   // bazi 形如 "丙午 己亥 己亥 辛未" 或 "... 吉时"
   const yearZhi = bazi.charAt(1);
   // 年三煞按农历（六十甲子）年定，不按公历年
@@ -10372,6 +10585,41 @@ const HH_HOURS = ['子','丑','寅','卯','辰','巳','午','未','申','酉','�
     if (el) el.innerHTML = HH_HOURS.map((h, i) => '<option value="' + i + '">' + h + '时</option>').join('');
   }
 })();
+// 女命行嫁利月：以女命年支定（1=寅月 … 12=丑月，节气月）
+var _NV_LIYUE = {
+  '子': { da: [6, 12], xiao: [1, 7] }, '午': { da: [6, 12], xiao: [1, 7] },
+  '丑': { da: [5, 11], xiao: [4, 10] }, '未': { da: [5, 11], xiao: [4, 10] },
+  '寅': { da: [2, 8], xiao: [3, 9] }, '申': { da: [2, 8], xiao: [3, 9] },
+  '卯': { da: [1, 7], xiao: [6, 12] }, '酉': { da: [1, 7], xiao: [6, 12] },
+  '辰': { da: [4, 10], xiao: [5, 11] }, '戌': { da: [4, 10], xiao: [5, 11] },
+  '巳': { da: [3, 9], xiao: [2, 8] }, '亥': { da: [3, 9], xiao: [2, 8] }
+};
+var _nvYearZhi = '';
+function _liyueOf(mi, bz) {
+  const t = _NV_LIYUE[bz];
+  if (!t) return null;
+  if (t.da.indexOf(mi) >= 0) return 'da';
+  if (t.xiao.indexOf(mi) >= 0) return 'xiao';
+  return 'none';
+}
+var _LY_NAME = ['正月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+function renderLiyue() {
+  const box = document.getElementById('calLiyue');
+  if (!box) return;
+  const ys = document.getElementById('calYongshi').value;
+  if (ys !== '结婚' || !_nvYearZhi || !_NV_LIYUE[_nvYearZhi]) { box.hidden = true; box.innerHTML = ''; return; }
+  const t = _NV_LIYUE[_nvYearZhi];
+  const mk = (mi, cls) => '<span class="ly-btn ' + cls + '" data-mi="' + mi + '">' + _LY_NAME[mi - 1] + '</span>';
+  box.hidden = false;
+  const _curMi = (function(){ try { const l = calLunar(CAL.y, CAL.m, 15); return ((ZHI12.indexOf(String(l.mGz)[1]) - 2) % 12 + 12) % 12 + 1; } catch (e) { return 0; } })();
+  const _curT = _curMi ? _liyueOf(_curMi, _nvYearZhi) : null;
+  const _curTxt = _curT === 'da' ? '本月：<b style="color:#c0392b">大利月</b>' : _curT === 'xiao' ? '本月：<b style="color:#3a5fcd">小利月</b>' : _curT === 'none' ? '本月：<b style="color:#a00">非利月</b>' : '';
+  box.innerHTML = '<div class="ly-h">女命' + _nvYearZhi + '年 · 行嫁利月' + (_curTxt ? '　' + _curTxt : '') + '</div>'
+    + '<div class="ly-row"><span class="ly-t da">大利月</span>' + t.da.map(m => mk(m, 'da')).join('') + '</div>'
+    + '<div class="ly-row"><span class="ly-t xiao">小利月</span>' + t.xiao.map(m => mk(m, 'xiao')).join('') + '</div>';
+}
+// 固定忌日（农历日）：初一忌嫁娶、十七忌安葬、廿五忌移居入宅
+var _EXC_DAY = { '结婚': 1, '安葬': 17, '搬家': 25 };
 function calFilterRender() {
   const ys = document.getElementById('calYongshi').value;
   const box = document.getElementById('calResult');
@@ -10379,6 +10627,7 @@ function calFilterRender() {
   if (hhM) hhM.hidden = ys !== '结婚';
   if (hhS) hhS.hidden = !(ys === '安葬' || ys === '搬家');
   if (!ys) { box.innerHTML = ''; return; }
+  if (!(YONGSHI_RULES[ys] || []).length) { box.innerHTML = '<div class="empty">搬家的判定规则待重新设定（八字排盘仍可用）</div>'; renderLiyue(); return; }
   const groups = YONGSHI_RULES[ys] || [];
   const y = CAL.y, m = CAL.m;
   const daysInMonth = new Date(y, m, 0).getDate();
@@ -10390,27 +10639,53 @@ function calFilterRender() {
     const mz = String(info.mGz)[1], dz = String(info.gz)[1];
     const jc = JIANCHU[((ZHI12.indexOf(dz) - ZHI12.indexOf(mz)) % 12 + 12) % 12];
     const wd = '日一二三四五六'[new Date(y, m - 1, d).getDay()];
-    cache.push({ d, info, yb, jc, html: '<div class="cr" data-y="' + y + '" data-m="' + m + '" data-d="' + d + '"><span class="d">' + m + '月' + d + '日 周' + wd + '</span><span class="gz">' + info.gz + ' ' + jc + '日</span></div>' });
+    cache.push({ d, info, yb, jc, skip: (_EXC_DAY[ys] && info.lunarDayNum === _EXC_DAY[ys]) || (ys === '结婚' && _nvYearZhi && (function(){ const z = _zhoutangOf(info); return z === '夫' || z === '妇'; })()) || (ys === '搬家' && info.lunarDayNum === 25) || (ys === '安葬' && _chongsangOf(info)) || (ys === '安葬' && _saodiOf(info)) || (ys === '安葬' && _lengdiOf(info)) || (ys === '安葬' && _rudiOf(info)) || (function(){ const _r = _relTags(info, ys); return _r.chong || (ys !== '安葬' && _r.hai); })(), html: '<div class="cr' + ((_EXC_DAY[ys] && info.lunarDayNum === _EXC_DAY[ys]) || (ys === '结婚' && _nvYearZhi && (function(){ const z=_zhoutangOf(info); return z==='夫'||z==='妇'; })()) || (ys === '搬家' && info.lunarDayNum === 25) || (ys === '安葬' && _chongsangOf(info)) || (ys === '安葬' && _saodiOf(info)) || (ys === '安葬' && _lengdiOf(info)) || (ys === '安葬' && _rudiOf(info)) || (function(){ const _r = _relTags(info, ys); return _r.chong || (ys !== '安葬' && _r.hai); })() ? ' off' : '') + '" data-y="' + y + '" data-m="' + m + '" data-d="' + d + '"><span class="d">' + m + '月' + d + '日 周' + wd + '</span>' + (function(){ if (ys !== '结婚' || !_nvYearZhi) return ''; const zt = _zhoutangOf(info); if (!zt) return ''; if (zt === '夫' || zt === '妇') return '<span class="lytag zt-bad">⚠ ' + zt + '日</span>'; if (zt === '翁' || zt === '姑') return '<span class="lytag zt">' + zt + '日</span>'; return '<span class="lytag zt-ok">' + zt + '日</span>'; })() + (((ys === '搬家' && info.lunarDayNum === 25) ? '<span class="lytag rel-bad">⚠ 横天朱雀</span>' : '') + ((ys === '安葬' && info.lunarDayNum === 17) ? '<span class="lytag rel-bad">⚠ 横天朱雀</span>' : '') + ((ys === '安葬') ? _anzangFortune(info) : '') + ((ys === '安葬' && _chongsangOf(info)) ? '<span class="lytag rel-bad">⚠ ' + _chongsangOf(info) + '</span>' : '') + ((ys === '安葬' && _saodiOf(info)) ? '<span class="lytag rel-bad">⚠ ' + _saodiOf(info) + '</span>' : '') + ((ys === '安葬' && _lengdiOf(info)) ? '<span class="lytag rel-bad">⚠ ' + _lengdiOf(info) + '</span>' : '') + ((ys === '安葬' && _rudiOf(info)) ? '<span class="lytag rel-bad">⚠ ' + _rudiOf(info) + '</span>' : '')) + _relTags(info, ys).html + (function(){ if (ys !== '结婚' || !_nvYearZhi) return ''; const mi2 = ((ZHI12.indexOf(String(info.mGz)[1]) - 2) % 12 + 12) % 12 + 1; const t = _liyueOf(mi2, _nvYearZhi); return t === 'da' ? '<span class="lytag da">大利月</span>' : (t === 'xiao' ? '<span class="lytag xiao">小利月</span>' : ''); })() + '<span class="gz">' + info.gz + ' ' + jc + '日</span></div>' });
   }
   let _prevKey = null;
+  const _seen = {};
   const _parts = [];
   for (const g of groups) {
-    const hits = cache.filter(c => g.fn(c.yb, c.jc, c.info)).map(c => c.html);
-    const key = hits.join('');
+    const matched = cache.filter(c => g.fn(c.yb, c.jc, c.info));
+    const key = matched.map(c => c.d).join(',');
     // 与上一档结果完全相同则跳过（避免重复档位）
     if (g.label && _prevKey !== null && key === _prevKey && key !== '') continue;
     _prevKey = key;
-    if (!hits.length) { _parts.push('<div class="empty">' + (g.label ? g.label + (g.desc ? '（' + g.desc + '）' : '') + '无' : '本月无符合日子') + '</div>'); continue; }
+    // 低级别已被高级别收录的日期不再重复显示
+    const fresh = matched.filter(c => !_seen[c.d]);
+    matched.forEach(c => { _seen[c.d] = 1; });
+    const hits = fresh.map(c => c.html);
+    if (!matched.length) { _parts.push('<div class="empty">' + (g.label ? g.label + (g.desc ? '（' + g.desc + '）' : '') + '无' : '本月无符合日子') + '</div>'); continue; }
+    if (!hits.length) continue;
     _parts.push('<div class="grp">' + (g.label ? '<div class="gh">' + g.label + (g.desc ? '（' + g.desc + '）' : '') + '</div>' : '') + hits.join('') + '</div>');
   }
   box.innerHTML = _parts.join('');
+  renderLiyue();
 }
+document.getElementById('hhReset').addEventListener('click', function () {
+  ['hhMale','hhFemale'].forEach(function (pre) {
+    const d = document.getElementById(pre + 'DT'); if (d) d.value = '';
+    const j = document.getElementById(pre + 'Jishi'); if (j) { j.checked = true; j.dispatchEvent(new Event('change')); }
+    const b = document.getElementById(pre + 'Bazi'); if (b) b.innerHTML = '';
+  });
+  _nanYearZhi = ''; _nvYearZhi = '';
+  if (typeof calFilterRender === 'function') { try { calFilterRender(); } catch (e) {} }
+});
+document.getElementById('hhSexSel').addEventListener('change', function () { try { _updateBazi('hhSingle', 'hhSingleCal', 'hhTst2', 'hhProv2', 'hhCity2'); } catch (e) {} });
 document.getElementById('calYongshi').addEventListener('change', calFilterRender);
 document.getElementById('calResult').addEventListener('click', e => {
   const c = e.target.closest('.cr');
   if (!c) return;
   CAL.sel = { y: +c.dataset.y, m: +c.dataset.m, d: +c.dataset.d };
   calRender();
+});
+document.getElementById('calLiyue').addEventListener('click', e => {
+  const b = e.target.closest('.ly-btn');
+  if (!b) return;
+  const mi = +b.dataset.mi;
+  CAL.m = (mi % 12) + 1;
+  CAL.sel = null;
+  calRender();
+  calFilterRender();
 });
 document.getElementById('calDate').addEventListener('change', e => {
   const v = e.target.value;
@@ -10419,8 +10694,8 @@ document.getElementById('calDate').addEventListener('change', e => {
   CAL.y = yy; CAL.m = mm; CAL.sel = { y: yy, m: mm, d: dd };
   calRender();
 });
-document.getElementById('calPrev').addEventListener('click', () => { CAL.m--; if (CAL.m < 1) { CAL.m = 12; CAL.y--; } calRender(); });
-document.getElementById('calNext').addEventListener('click', () => { CAL.m++; if (CAL.m > 12) { CAL.m = 1; CAL.y++; } calRender(); });
+document.getElementById('calPrev').addEventListener('click', () => { CAL.m--; if (CAL.m < 1) { CAL.m = 12; CAL.y--; } CAL.sel = { y: CAL.y, m: CAL.m, d: 1 }; calRender(); });
+document.getElementById('calNext').addEventListener('click', () => { CAL.m++; if (CAL.m > 12) { CAL.m = 1; CAL.y++; } CAL.sel = { y: CAL.y, m: CAL.m, d: 1 }; calRender(); });
 document.getElementById('calToday').addEventListener('click', () => { const n = new Date(); CAL.y = n.getFullYear(); CAL.m = n.getMonth() + 1; CAL.sel = { y: CAL.y, m: CAL.m, d: n.getDate() }; calRender(); });
 document.getElementById('calGrid').addEventListener('click', e => { const c = e.target.closest('.cal-cell'); if (!c) return; CAL.sel = { y: +c.dataset.y, m: +c.dataset.m, d: +c.dataset.d }; calRender(); });
 calRender();
